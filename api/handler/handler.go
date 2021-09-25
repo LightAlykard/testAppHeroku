@@ -94,7 +94,7 @@ func (rt *Router) PostCreate(w http.ResponseWriter, r *http.Request) {
 	_ = json.NewEncoder(w).Encode(
 		Item{
 			ID:         nbu.ID,
-			shortUrl:   nbu.longUrl,
+			shortUrl:   nbu.shortUrl,
 			longUrl:    nbu.longUrl,
 			Count:      nbu.Count,
 			Permission: nbu.Permissions,
