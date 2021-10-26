@@ -16,8 +16,8 @@ var _ item.ItemStore = &Items{}
 
 type DBPgItem struct {
 	ID          uuid.UUID `db:"id"`
-	shortUrl    string    `db:"shortUrl"`
-	longUrl     string    `db:"longUrl"`
+	ShortUrl    string    `db:"shortUrl"`
+	LongUrl     string    `db:"longUrl"`
 	Count       int       `db:"count"`
 	Permissions int       `db:"perms"`
 }
@@ -64,8 +64,8 @@ func (us *Items) Create(ctx context.Context, u item.Item) (*uuid.UUID, error) {
 	uid := uuid.New()
 	dbu := &DBPgItem{
 		ID:          uid,
-		shortUrl:    u.shortUrl,
-		longUrl:     u.longUrl,
+		ShortUrl:    u.ShortUrl,
+		LongUrl:     u.LongUrl,
 		Count:       u.Count,
 		Permissions: u.Permissions,
 	}
@@ -74,8 +74,8 @@ func (us *Items) Create(ctx context.Context, u item.Item) (*uuid.UUID, error) {
 	(id, shortUrl, longUrl, count, perms)
 	values ($1, $2, $3, $4, $5)`,
 		dbu.ID,
-		dbu.shortUrl,
-		dbu.longUrl,
+		dbu.ShortUrl,
+		dbu.LongUrl,
 		dbu.Count,
 		dbu.Permissions,
 	)
@@ -97,8 +97,8 @@ func (us *Items) Read(ctx context.Context, uid uuid.UUID) (*item.Item, error) {
 	for rows.Next() {
 		if err := rows.Scan(
 			&dbu.ID,
-			&dbu.shortUrl,
-			&dbu.longUrl,
+			&dbu.ShortUrl,
+			&dbu.LongUrl,
 			&dbu.Count,
 			&dbu.Permissions,
 		); err != nil {
@@ -108,8 +108,8 @@ func (us *Items) Read(ctx context.Context, uid uuid.UUID) (*item.Item, error) {
 
 	return &item.Item{
 		ID:          dbu.ID,
-		shortUrl:    dbu.shortUrl,
-		longUrl:     dbu.longUrl,
+		ShortUrl:    dbu.ShortUrl,
+		LongUrl:     dbu.LongUrl,
 		Count:       dbu.Count,
 		Permissions: dbu.Permissions,
 	}, nil
@@ -141,8 +141,8 @@ func (us *Items) SearchItems(ctx context.Context, s string) (chan item.Item, err
 		for rows.Next() {
 			if err := rows.Scan(
 				&dbu.ID,
-				&dbu.shortUrl,
-				&dbu.longUrl,
+				&dbu.ShortUrl,
+				&dbu.LongUrl,
 				&dbu.Count,
 				&dbu.Permissions,
 			); err != nil {
@@ -152,8 +152,8 @@ func (us *Items) SearchItems(ctx context.Context, s string) (chan item.Item, err
 
 			chout <- item.Item{
 				ID:          dbu.ID,
-				shortUrl:    dbu.shortUrl,
-				longUrl:     dbu.longUrl,
+				ShortUrl:    dbu.ShortUrl,
+				LongUrl:     dbu.LongUrl,
 				Count:       dbu.Count,
 				Permissions: dbu.Permissions,
 			}

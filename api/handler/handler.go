@@ -49,8 +49,8 @@ func NewRouter(us *item.Items) *Router {
 
 type Item struct {
 	ID         uuid.UUID `json:"id"`
-	shortUrl   string    `json:"shortUrl"`
-	longUrl    string    `json:"longUrl"`
+	ShortUrl   string    `json:"shortUrl"`
+	LongUrl    string    `json:"longUrl"`
 	Count      int       `json:"count"`
 	Permission int       `json:"perms"`
 }
@@ -76,9 +76,9 @@ func (rt *Router) PostCreate(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	bu := item.Item{
-		shortUrl: u.shortUrl,
-		longUrl:  u.longUrl,
+	bu := item.Item{ //bu := item.Item{
+		ShortUrl: u.ShortUrl,
+		LongUrl:  u.LongUrl,
 		//надо ли сюда count
 	}
 
@@ -94,8 +94,8 @@ func (rt *Router) PostCreate(w http.ResponseWriter, r *http.Request) {
 	_ = json.NewEncoder(w).Encode(
 		Item{
 			ID:         nbu.ID,
-			shortUrl:   nbu.shortUrl,
-			longUrl:    nbu.longUrl,
+			ShortUrl:   nbu.ShortUrl,
+			LongUrl:    nbu.LongUrl,
 			Count:      nbu.Count,
 			Permission: nbu.Permissions,
 		},
@@ -127,8 +127,8 @@ func (rt *Router) GetReadId(w http.ResponseWriter, r *http.Request, suid string)
 	_ = json.NewEncoder(w).Encode(
 		Item{
 			ID:         nbu.ID,
-			shortUrl:   nbu.longUrl,
-			longUrl:    nbu.longUrl,
+			ShortUrl:   nbu.ShortUrl,
+			LongUrl:    nbu.LongUrl,
 			Count:      nbu.Count,
 			Permission: nbu.Permissions,
 		},
@@ -159,8 +159,8 @@ func (rt *Router) DeleteDeleteId(w http.ResponseWriter, r *http.Request, suid st
 	_ = json.NewEncoder(w).Encode(
 		Item{
 			ID:         nbu.ID,
-			shortUrl:   nbu.longUrl,
-			longUrl:    nbu.longUrl,
+			ShortUrl:   nbu.ShortUrl,
+			LongUrl:    nbu.LongUrl,
 			Count:      nbu.Count,
 			Permission: nbu.Permissions,
 		},
@@ -197,8 +197,8 @@ func (rt *Router) FindItems(w http.ResponseWriter, r *http.Request, q string) {
 			_ = enc.Encode(
 				Item{
 					ID:         u.ID,
-					shortUrl:   u.longUrl,
-					longUrl:    u.longUrl,
+					ShortUrl:   u.ShortUrl,
+					LongUrl:    u.LongUrl,
 					Count:      u.Count,
 					Permission: u.Permissions,
 				},

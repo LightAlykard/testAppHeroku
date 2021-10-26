@@ -9,8 +9,8 @@ import (
 
 type Item struct {
 	ID          uuid.UUID
-	shortUrl    string
-	longUrl     string
+	ShortUrl    string
+	LongUrl     string
 	Count       int
 	Permissions int
 }
